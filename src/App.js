@@ -13,7 +13,23 @@ function CoffeeIngredients(props) {
   )
 }
 
-function App() {
+function Coffee(props) {
+  const {item} = props
+  return (
+    <div key={item.id} className="card mb-3">
+    <div className="card-body">
+      <h2>{item.title}</h2>
+      <p>{item.description}</p>
+      <div id="ingredients">
+        <h4>Ingredients</h4>
+        <CoffeeIngredients currentCoffee={item}/>
+      </div>
+    </div>
+    </div>
+  )
+}
+
+function Coffeelist() {
   const [coffee, setCoffee] = useState([]);
 
   useEffect(() => {
@@ -35,22 +51,19 @@ function App() {
       {
         coffee.map((item) => {
           return (
-            <div key={item.id} className="card mb-3">
-            <div className="card-body">
-              <h2>{item.title}</h2>
-              <p>{item.description}</p>
-              <div id="ingredients">
-                <h4>Ingredients</h4>
-                <CoffeeIngredients currentCoffee={item}/>
-              </div>
-            </div>
-            </div>
+           <Coffee item={item} />
           )
         })
       }
       </div>
     </div>
   );
+}
+
+function App() {
+  return (
+    <Coffeelist />
+  )
 }
 
 export default App;
